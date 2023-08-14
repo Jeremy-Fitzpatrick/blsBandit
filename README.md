@@ -5,9 +5,9 @@ It is currently under development and only shows the U1-U6 unemployment data.
 
 ## Package Installation
 
-If needed install devtools.
-install.packages("devtools")
-Install blsBandit.
+If needed install devtools.  
+install.packages("devtools")  
+Install blsBandit.  
 devtools::install_github("Jeremy-Fitzpatrick/blsBandit")
 
 ## BLS Viewer
