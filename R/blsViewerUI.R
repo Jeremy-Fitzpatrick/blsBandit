@@ -17,7 +17,7 @@ blsViewUI <- function() {
       column(
         offset = 2, 3,
         selectizeInput("unemploymentSeries", "Select Unemployment Series",
-          choices = NULL
+          choices = NULL, multiple = TRUE
         )
       ),
       column(2, selectizeInput("selectStartYear", "Select Start Year",

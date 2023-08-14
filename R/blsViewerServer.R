@@ -7,7 +7,8 @@ blsViewerServer <- function(input, output, session) {
   ## Update selections based on available unemployment series.
   updateSelectizeInput("unemploymentSeries",
     session = session,
-    choices = blsSelect("SELECT uiName FROM blsSeriesNames;")$uiName
+    choices = blsSelect("SELECT uiName FROM blsSeriesNames;")$uiName,
+    selected = blsSelect("SELECT uiName FROM blsSeriesNames;")$uiName[3]
   )
 
   ## Update years selections, based on unemployment series selection.
@@ -17,7 +18,9 @@ blsViewerServer <- function(input, output, session) {
         "SELECT DISTINCT year FROM blsDataSeries ",
         "INNER JOIN blsSeriesNames ON ",
         "blsSeriesNames.seriesID = blsDataSeries.fk_seriesID ",
-        "WHERE uiName = '", input$unemploymentSeries, "';"
+        "WHERE uiName IN ('",
+        paste(input$unemploymentSeries, collapse = "','"),
+        "');"
       ))$year
       years <- sort(years)
       updateSelectizeInput("selectStartYear",

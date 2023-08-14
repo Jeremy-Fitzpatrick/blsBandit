@@ -8,17 +8,18 @@
 unemploymentPlot <- function(series, yearStart, yearEnd) {
   ## Get unemployment data from data base.
   unemploymentData <- blsSelect(paste0(
-    "SELECT year, month, rate FROM blsDataSeries ",
+    "SELECT uiName, year, month, rate FROM blsDataSeries ",
     "INNER JOIN blsSeriesNames ON ",
     "blsSeriesNames.seriesID = blsDataSeries.fk_seriesID ",
-    "WHERE uiName = '", series, "' AND ",
-    " year >= ", yearStart, " AND year <= ", yearEnd, ";"
+    "WHERE uiName IN ('",
+    paste(series, collapse = "','"),
+    "') AND ", " year >= ", yearStart, " AND year <= ", yearEnd, ";"
   ))
 
   ## If no data is found return a warning.
   if (nrow(unemploymentData) == 0) {
     warning("No Unemployment Data For Selection")
-    return()
+    return(NULL)
   }
 
   ## Create sortable month/year formatted column.
@@ -29,7 +30,7 @@ unemploymentPlot <- function(series, yearStart, yearEnd) {
   unemploymentData <- unemploymentData[order(unemploymentData$yearMonth), ]
 
   ## Create Plotly plot of unemployment data.
-  blsPlot <- plot_ly(unemploymentData,
+  blsPlot <- plot_ly(unemploymentData, split = ~uiName,
     x = ~yearMonth, y = ~rate, type = "scatter", mode = "lines"
   ) %>%
     layout(
@@ -37,5 +38,6 @@ unemploymentPlot <- function(series, yearStart, yearEnd) {
       yaxis = list(title = "Unemployment Rate"),
       title = series
     )
+
   return(blsPlot)
 }
