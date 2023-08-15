@@ -14,6 +14,7 @@ Imports:
     plotly (>= 4.10.2),
     RSQLite (>= 2.2.16),
     shiny (>= 1.7.1),
+    shinythemes (>= 1.2.0),
     zoo (>= 1.8-12)
 Enhances: 
     blsAPI(>= 0.2.2)

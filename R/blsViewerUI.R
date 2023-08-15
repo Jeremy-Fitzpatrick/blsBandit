@@ -4,6 +4,7 @@
 #' @noRd
 blsViewUI <- function() {
   fluidPage(
+    theme = shinytheme("superhero"),
     ## Title
     fluidRow(h1("BLS Viewer", style = "text-align: center;")),
     fluidRow(br()),
@@ -15,16 +16,20 @@ blsViewUI <- function() {
     ## Selections for Series and Years
     fluidRow(
       column(
-        offset = 2, 3,
+        offset = 2, 3, align = "center",
         selectizeInput("unemploymentSeries", "Select Unemployment Series",
           choices = NULL, multiple = TRUE
         )
       ),
-      column(2, selectizeInput("selectStartYear", "Select Start Year",
-        choices = NULL
-      )),
+      column(2,
+        align = "center",
+        selectizeInput("selectStartYear", "Select Start Year",
+          choices = NULL
+        )
+      ),
       fluidRow(column(
         2,
+        align = "center",
         selectizeInput("selectEndYear", "Select End Year",
           choices = NULL
         )

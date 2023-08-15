@@ -30,7 +30,8 @@ unemploymentPlot <- function(series, yearStart, yearEnd) {
   unemploymentData <- unemploymentData[order(unemploymentData$yearMonth), ]
 
   ## Create Plotly plot of unemployment data.
-  blsPlot <- plot_ly(unemploymentData, split = ~uiName,
+  blsPlot <- plot_ly(unemploymentData,
+    split = ~uiName,
     x = ~yearMonth, y = ~rate, type = "scatter", mode = "lines"
   ) %>%
     layout(
